@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web AI Interface app template</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-column {
+            width: 25%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin-right: 20px;
+        }
+
+        .right-column {
+            width: 75%;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-button {
+            padding: 10px 20px;
+            background-color: #828282;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="logo">
+                <h2>Cake&nbsp;Boss</h2>
+                <p>with&nbsp;Google&nbsp;AI</p>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="form-container">
+                <h3>Enter a cake request:</h3>
+                <form method="POST" action="/">
+                    <textarea class="form-input" id="request" name="request" required>{{ request }}
+                    </textarea><br><br>
+                    <button type="submit" class="form-button">Get data</button>
+                </form>
+            </div>
+            {% if result %}
+            <br><br>
+            <h3>Output</h3>
+            <code>{{ result }}</code>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "web-ai-interface-app"
+version = "0.1.0"
+description = ""
+authors = ["Joe Fernandez <joefernandez@google.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask = "^3.0.3"
+google-generativeai = "^0.7.2"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
