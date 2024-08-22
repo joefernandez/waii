@@ -1,0 +1,128 @@
+:root {
+  --pink: #ef8094;
+  --pink-text: #c91738;
+  --black: #070600;
+  --white: #f7f7ff;
+  --elevation-1: 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                 0px 2px 1px -1px rgba(0, 0, 0, 0.12),
+                 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+  --margin-left: 5rem;
+  --display-font: "Poppins", Roboto, sans-serif;
+  --text-font: Roboto, sans-serif;
+}
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--text-font);
+  margin: 0;
+}
+
+.container {
+   display: grid;
+   grid-template-areas: "left-col main-col";
+   grid-template-columns: 15rem auto;
+   height: 100vh;
+   width: 99vw;
+   overflow: hidden;
+}
+
+.left-column {
+   background-color: var(--pink);
+   border-radius: 0 8rem 8rem 0;
+   grid-area: left-col;
+   padding: 1.5rem;
+}
+
+.right-column {
+  display: grid;
+  grid-area: main-col;
+  grid-template-areas: "topbar"
+                       "form"
+                       "output";
+  grid-template-rows: 4rem .6fr 1fr;
+}
+
+.logo {
+  position: relative;
+  text-align: center;
+  top: 3rem;
+}
+
+.topbar {
+  padding: 1rem;
+  text-align: right;
+  color: var(--pink-text);
+}
+
+.settings {
+  content: 'settings';
+}
+
+.material-symbols-outlined {
+  cursor: pointer;
+  font-variation-settings: 'FILL' 1,
+                           'wght' 400,
+                           'GRAD' 0,
+                           'opsz' 24;
+  font-size: 2rem !important;
+  user-select: none;
+}
+
+h1 {
+  color: var(--white);
+  font-family: var(--display-font);
+  font-size: 4rem;
+  margin: auto;
+  width: 100%;
+}
+
+h2 {
+  color: var(--pink-text);
+  font-family: var(--display-font);
+}
+
+.form-container {
+  grid-area: form;
+  margin-left: var(--margin-left);
+}
+
+form {
+  display: inline-grid;
+  width: fit-content;
+}
+
+textarea {
+  width: 45vw;
+  height: 20vh;
+  padding: 1rem;
+  font-family: var(--text-font);
+  font-size: 1rem;
+  border: 1px solid #efd6d6;
+  border-radius: 1rem;
+  resize: none;
+  box-shadow: var(--elevation-1);
+}
+
+button {
+  padding: .5rem 2.5rem;
+  background-color: var(--pink-text);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content;
+  margin: 1rem auto;
+  font-family: var(--display-font);
+  font-weight: 600;
+}
+
+.output {
+  grid-area: output;
+  margin-left: var(--margin-left);
+}
+
+.export {
+  display: inline-grid;
+  width: fit-content;
+}
