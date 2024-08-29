@@ -1,8 +1,13 @@
 :root {
-  --pink: #ef8094;
-  --pink-text: #c91738;
+  --gradient-top: #ef8094;
+  --gradient-bottom: #ef637b;
+  --colorized-text: #c91738;
   --black: #070600;
   --white: #f7f7ff;
+  --button-bg: var(--colorized-text);
+  --button-bg-hover: #af0827;
+  --button-text: white;
+  --border-radius: 3rem;
   --elevation-1: 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
                  0px 2px 1px -1px rgba(0, 0, 0, 0.12),
                  0px 1px 3px 0px rgba(0, 0, 0, 0.2);
@@ -28,8 +33,8 @@ body {
 }
 
 .left-column {
-   background-color: var(--pink);
-   border-radius: 0 8rem 8rem 0;
+   background: linear-gradient(180deg, var(--gradient-top), var(--gradient-bottom));
+   border-radius: 0 var(--border-radius) var(--border-radius) 0;
    grid-area: left-col;
    padding: 1.5rem;
 }
@@ -40,7 +45,7 @@ body {
   grid-template-areas: "topbar"
                        "form"
                        "output";
-  grid-template-rows: 4rem .6fr 1fr;
+  grid-template-rows: 4rem .5fr 1fr;
 }
 
 .logo {
@@ -52,7 +57,7 @@ body {
 .topbar {
   padding: 1rem;
   text-align: right;
-  color: var(--pink-text);
+  color: var(--colorized-text);
 }
 
 .settings {
@@ -78,17 +83,27 @@ h1 {
 }
 
 h2 {
-  color: var(--pink-text);
+  color: var(--colorized-text);
   font-family: var(--display-font);
 }
 
 .form-container {
+  display: grid;
   grid-area: form;
+  grid-template-areas: "formbox import";
+  grid-template-columns: min-content;
+  justify-content: left;
   margin-left: var(--margin-left);
+}
+
+.import-button-group {
+  grid-area: import;
 }
 
 form {
   display: inline-grid;
+  grid-area: formbox;
+  grid-template-rows: min-content;
   width: fit-content;
 }
 
@@ -104,17 +119,62 @@ textarea {
   box-shadow: var(--elevation-1);
 }
 
+textarea:focus {
+  outline-color: var(--gradient-bottom);
+}
+
 button {
-  padding: .5rem 2.5rem;
-  background-color: var(--pink-text);
-  color: white;
+  padding: .7rem 2.5rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  height: fit-content;
   width: fit-content;
   margin: 1rem auto;
   font-family: var(--display-font);
   font-weight: 600;
+  transition: background .3s;
+}
+
+button:hover,
+button:focus {
+  background: var(--button-bg-hover);
+}
+
+.import,
+.copy-to-clipboard {
+  margin-left: 1rem;
+  padding: .5rem;
+}
+
+.button-group {
+  display: inline-flex;
+}
+
+.tooltip {
+  background: var(--black);
+  border-radius: .5em;
+  color: var(--white);
+  filter: opacity(.75);
+  font-family: var(--display-font);
+  font-size: .9rem;
+  font-weight: 500;
+  position: relative;
+  top: 5rem;
+  left: -3rem;
+  height: fit-content;
+  opacity: 0;
+  padding: .5em 1em;
+  transition: opacity .2s;
+  visibility: hidden;
+}
+
+button:hover + .tooltip,
+button:focus + .tooltip {
+  opacity: 1;
+  visibility: visible;
 }
 
 .output {
@@ -122,7 +182,22 @@ button {
   margin-left: var(--margin-left);
 }
 
+.form-container,
 .export {
-  display: inline-grid;
+  grid-template-columns: min-content;
+  justify-content: left;
+}
+
+.export {
+  display: grid;
+  grid-template-areas: "output copybutton";
   width: fit-content;
+}
+
+.copy-button-group {
+  grid-area: copybutton;
+}
+
+.json-output {
+  grid-area: output;
 }
