@@ -15,7 +15,6 @@
 #
 from flask import Flask, render_template, request
 from web_ai_interface_app.models.gemini import create_message_processor
-import markdown
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -29,7 +28,7 @@ def index():
         customer_request = request.form['request']
         prompt += customer_request
         result = process_message(prompt)
-        result = markdown.markdown(result)
+        result = strip_markdown(result)
         # re-render page with data:
         return render_template('index.html', request=customer_request, result=result)
     return render_template('index.html')
@@ -38,34 +37,12 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 def get_prompt():
-    return "Extract the relevant details of this request and return them as a list:\n"
+    return "Extract the relevant details of this request and return them in JSON format:\n"
 
-def create_list(text):
-    """
-    Processes the JSON returned by the model and puts it into an HTML-friendly format.
+def strip_markdown(text):
+  if text.startswith('```json') and text.endswith('```'):
+     text = text.replace('```json', '')
+     text = text.replace('```', '')
+     text = text.strip()
 
-    Args:
-         text: The string to process.
-
-    Returns:
-         The processed HTML, or the original string if the JSON is not formatted with
-         Markdown.
-    """
-
-    text = text.splitlines()
-    text = text[2:-1]
-    for x,s  in enumerate(text):
-         if text[x].endswith(","):
-              s = s[:-1]
-
-         s = s.replace('"', '')
-         s = s.replace('_', ' ')
-         text[x] = "<li>" + s + "</li>"
-    text = "\n".join(text)
-    return text
-
-def scrub_markdown(text):
-    if text.startswith("```json"):
-         text = text.replace("```json", "")
-         text = text.replace("```", "")
-    return text
+  return text

@@ -10,6 +10,7 @@ python = "^3.9"
 flask = "^3.0.3"
 google-generativeai = "^0.7.2"
 python-dotenv = "^1.0.1"
+bleach = "^6.1.0"
 
 
 [build-system]
