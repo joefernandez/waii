@@ -17,12 +17,20 @@ from flask import Flask, render_template, request
 from web_ai_interface_app.models.gemini import create_message_processor
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
+customer_request = None
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    global customer_request
     """Set up web interface and handle POST input."""
     process_message = create_message_processor()
 
+    # First run behavior: load a test email
+    if customer_request is None:
+        customer_request = get_test_email()
+        return render_template('index.html', request=customer_request)
+
+    # Process email data
     if request.method == 'POST':
         prompt = get_prompt()
         customer_request = request.form['request']
@@ -31,6 +39,7 @@ def index():
         result = strip_markdown(result)
         # re-render page with data:
         return render_template('index.html', request=customer_request, result=result)
+
     return render_template('index.html')
 
 if __name__ == '__main__':
@@ -46,3 +55,11 @@ def strip_markdown(text):
      text = text.strip()
 
   return text
+
+def get_test_email():
+    try:
+        with open('data/email-001.txt', 'r') as file:
+            email_content = file.read()
+    except FileNotFoundError:
+        email_content = "Error: File not found!"
+    return email_content
